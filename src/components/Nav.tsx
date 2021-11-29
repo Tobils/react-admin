@@ -1,7 +1,15 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 
+const addBodyClass = (className: string) =>
+  document.body.classList.add(className);
+
+const removeBodyClass = (className: string) =>
+  document.body.classList.remove(className);
+
 export default function Nav() {
+  const [isOpen, setIsOpen] = useState(false);
+
   return (
     <nav className="navbar default-layout col-lg-12 col-12 p-0 fixed-top d-flex align-items-top flex-row">
       <div className="text-center navbar-brand-wrapper d-flex align-items-center justify-content-start">
@@ -9,18 +17,26 @@ export default function Nav() {
           <button
             className="navbar-toggler navbar-toggler align-self-center"
             type="button"
-            data-bs-toggle="minimize"
+            onClick={() => {
+              if (isOpen) {
+                document.body.classList.add("sidebar-icon-only");
+                setIsOpen(false);
+              } else {
+                document.body.classList.remove("sidebar-icon-only");
+                setIsOpen(true);
+              }
+            }}
           >
             <span className="icon-menu"></span>
           </button>
         </div>
         <div>
-          <a className="navbar-brand brand-logo" href="index.html">
+          <Link className="navbar-brand brand-logo" to="/">
             <img src="images/logo.svg" alt="logo" />
-          </a>
-          <a className="navbar-brand brand-logo-mini" href="index.html">
+          </Link>
+          <Link className="navbar-brand brand-logo-mini" to="/">
             <img src="images/logo-mini.svg" alt="logo" />
-          </a>
+          </Link>
         </div>
       </div>
       <div className="navbar-menu-wrapper d-flex align-items-top">
